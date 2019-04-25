@@ -1,36 +1,38 @@
 <template>
   <v-app light id="app">
-    <!--
     <v-toolbar app></v-toolbar>
-    -->
     <v-content>
       <v-container fluid>
         <v-card class="elevation-12">
           <v-card-text>
-            <GoTTY/>
           </v-card-text>
+          <v-btn color="accent" large @click.stop="showLogin=true">
+            foo
+          </v-btn>
         </v-card>
       </v-container>
     </v-content>
-    <!--
     <v-footer app></v-footer>
-    -->
+    <Login v-model="showLogin"/>
   </v-app>
 </template>
 
 <script>
-import GoTTY from './components/GoTTY'
+//import GoTTY from './components/GoTTY'
+import Login from './Login'
 
 export default {
   name: 'app',
   components: {
-    GoTTY
+    //GoTTY
+    Login
   },
   data: function () {
     return {
       user: 'jochen',
       password: '',
-      passcode: ''
+      passcode: '',
+      showLogin: true
     }
   },
   methods: {
@@ -43,18 +45,18 @@ export default {
     },
     submit: function () {
       this.$refs.form.validate()
-      // fetch("/api/login",{
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json"
-      //   },
-      //   body: JSON.stringify({
-      //     user: this.user,
-      //     password: this.password,
-      //     passcode: this.passcode
-      //   })
-      // })
-      // alert("submit")
+      fetch("/api/login",{
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          user: this.user,
+          password: this.password,
+          passcode: this.passcode
+        })
+      })
+      alert("submit")
     }
   }
 }
